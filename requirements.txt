@@ -5,3 +5,6 @@ xfail==1.1.2
 pytz==2025.2
 python-dateutil==2.9.0
 pydantic==2.11.7
+selenium==4.35.0
+chromedriver-binary==139.0.7258.154.0
+psutil==7.0.0

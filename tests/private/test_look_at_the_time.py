@@ -1,44 +1,19 @@
 from datetime import datetime
-import time
 
-import pytest
 import pytz
 
 
-def __fast_calculation_function() -> int:
-    # It's something generally fast
-    return sum(i for i in range(100))
+# Let's talk about time.time() vs time.perf_counter()
+# One is real-world time, another is performance benchmarking tool / intervals measurer.
 
+# time.time() might suck at measuring time < 1 second or < 500 ms
+# due to possible rounding errors.
 
-def test_bad_performance_measure():
-    """This test lacks precision
-    as time.time() is better suited for working with seconds-sized time."""
-    start = time.time()
-    __fast_calculation_function()
-    stop = time.time()
-    print(f"Elapsed with time.time(): {(stop - start):.9f}")
+# time.perf_counter() is non adjustable, monotonic, more precise.
 
-    start = time.perf_counter()
-    __fast_calculation_function()
-    stop = time.perf_counter()
-    # This has better precision
-    print(f"Elapsed with time.perf_counter(): {stop - start}")
+# time.time() is good for real-world time(stamps) & system time.
+# time.perf_counter() is good for measuring short intervals.
 
-
-def test_good_time_span():
-    """time.time() is better with seconds-sized time spans."""
-    start = time.time()
-    time.sleep(10)
-    stop = time.time()
-    print(f"Elapsed with time.time: {stop - start}")
-
-    start = time.perf_counter_ns()
-    time.sleep(10)
-    stop = time.perf_counter_ns()
-    print(f"Elapsed with time.perf_counter_ns: {(stop - start) / 10 ** 9}")
-
-
-@pytest.mark.xfail
 def test_bad_jumping_dst():
     """This test has weired 0 seconds diff due to a dst change."""
 
@@ -74,7 +49,7 @@ def test_better_jumping_dst():
     dt1 = dt1.astimezone(tz=UTC_tz)
     dt2 = dt2.astimezone(tz=UTC_tz)
 
-    assert (dt2 - dt1).seconds == 60 * 60
+    assert (dt2 - dt1).seconds == (dt2 - dt1).seconds == 60 * 60
     assert (dt1 - dt2).days == -1
 
 # an example of an NTP synchronization causing issues with

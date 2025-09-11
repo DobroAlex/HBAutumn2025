@@ -6,9 +6,7 @@ def __piglets_in_the_house_provider() -> set[str]:
     return {"Ниф-Ниф", "Наф-Наф", "Нуф-Нуф"}
 
 
-@pytest.mark.xfail
 def test_unordered_collections_comparison():
-    """"""
     # We need to check whether all piglets are in the house.
     actual_piglets = __piglets_in_the_house_provider()
     expected_piglets = ["Ниф-Ниф", "Нуф-Нуф", "Наф-Наф"]
@@ -34,7 +32,6 @@ def test_unordered_collections_comparison():
 
 
 # noinspection PySetFunctionToLiteral
-@pytest.mark.xfail
 def test_bad_ordered_to_unordered_to_ordered_conversion():
     """This fails pretty much always due to loss of order"""
     assert ["Биба", "Бобы", "Пупсени", "Вупсень"] == \

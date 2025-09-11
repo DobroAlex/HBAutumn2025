@@ -1,14 +1,8 @@
-import subprocess
-from enum import Enum, StrEnum
-
+from enum import Enum
 from typing import TypeVar, runtime_checkable, Protocol
 
 import pytest
 from pydantic import BaseModel
-
-
-def __do_addition(a: int, b: int):
-    return a + b
 
 
 def do_addition(a, b):
@@ -16,14 +10,11 @@ def do_addition(a, b):
 
 
 def test_surprising_type():
-    assert __do_addition(1, 2) == 3
-    assert __do_addition(1.2, 3.4) == 4.6
-    assert __do_addition("10", "12") == "1012"
-    assert __do_addition([1, ], [2, ]) == [1, 2, ]
-    with pytest.raises(TypeError):
-        assert __do_addition((1,), [2, ])
-
-    assert subprocess.call(f"mypy {__file__} --strict") != 0
+    assert do_addition(1, 2) == 3
+    assert do_addition(1.2, 3.4) == 4.6
+    assert do_addition("10", "12") == "1012"
+    assert do_addition([1, ], [2, ]) == [1, 2, ]
+    assert do_addition((1,), [2, ])
 
 
 @runtime_checkable
