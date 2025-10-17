@@ -8,3 +8,8 @@ pydantic==2.11.7
 selenium==4.35.0
 chromedriver-binary==139.0.7258.154.0
 psutil==7.0.0
+pytest-repeat==0.9.4
+pywin32==311; sys_platform == 'win32'
+tzdata>=2025.2
+frozendict==2.4.6
+mysqlclient==2.2.7
